@@ -1,0 +1,7 @@
+old/
+neural-net/
+.cache/
+build/
+vendor/g3log/build/
+lib/
+memory/

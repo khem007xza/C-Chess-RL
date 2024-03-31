@@ -1,0 +1,45 @@
+{
+	"name": "ChessRL-devcontainer",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+
+	"extensions": [
+		"llvm-vs-code-extensions.vscode-clangd",
+		"ms-vscode.cpptools-themes",
+		"ms-vscode.cpptools",
+		"cschlosser.doxdocgen",
+		"GitHub.copilot",
+		"GitHub.vscode-pull-request-github",
+		"ms-vscode.cmake-tools",
+		"ms-vscode.cpptools-extension-pack"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "user",
+
+	"mounts": [
+		// x display passthrough
+		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+		// training data mount
+		"source=${localWorkspaceFolder}/memory,target=/app/memory,type=bind,consistency=cached",
+		// models mount
+		"source=${localWorkspaceFolder}/models,target=/app/models,type=bind,consistency=cached"
+	],
+
+	"containerEnv": {
+        "DISPLAY": "unix:0"
+    },
+	// gpu passthrough
+	"runArgs": [
+		"--gpus=all",
+		"--privileged"
+	]
+}
